@@ -1,12 +1,16 @@
 export type FileItem = {
-    name: string;
     type: 'file';
-}
+};
 
 export type FolderItem = {
-    name: string;
     type: 'folder';
-    children: Array <FileSystemItem>;
-}
+    children: Record<string, FileSystemItem>;
+};
+
+export type FileSystem = Record<string, FileSystemItem>;
 
 export type FileSystemItem = FolderItem | FileItem;
+
+export type FileSystemData = {
+    root: FileSystem;
+};

@@ -1,18 +1,35 @@
 import './App.css'
 
-import {fileSystem} from './data/fileSystem';
+import { useEffect, useState } from "react";
+import type { FileSystemData } from "./types/fileSystem";
 import FileSystemItem from './components/FileSystemItem';
 
 function App() {
-  return (
-    <>
-      <div>
-        {fileSystem.map((item) => (
-          <FileSystemItem key={item.name} item={item}/>
-        ))}
-      </div>
-    </>
-  )
+    const [fileSystem, setFileSystem] = useState<FileSystemData|null>(null);
+
+    useEffect(() => {
+        fetch("/data/file-system.json")
+            .then((response) => response.json())
+            .then((data:FileSystemData) => setFileSystem(data));
+    },  []);
+
+    if (!fileSystem) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+        <>
+            <div>
+                {Object.entries(fileSystem.root).map(([name, item]) => (
+                    <FileSystemItem
+                    key={name}
+                    name={name}
+                    item={item}
+                    />
+                ))}
+            </div>
+        </>
+    )
 }
 
 export default App
