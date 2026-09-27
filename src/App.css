@@ -1,3 +1,11 @@
 .file-system-item__children {
   margin-left: 20px;
 }
+
+.file-system-item__folder {
+  cursor: pointer;
+}
+
+.file-system-item__folder:hover {
+  opacity: 0.8;
+}
