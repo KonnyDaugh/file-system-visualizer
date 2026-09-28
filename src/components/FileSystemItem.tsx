@@ -11,13 +11,22 @@ export default function FileSystemItem({name, item}: FileSystemItemProps) {
 
     if (item.type === 'file') {
         return (
-            <div>📄{name}</div>
+            <div className="file-system-item">
+                <span>📄</span>
+                <span>{name}</span>
+            </div>
         );
     }
 
     return (
         <>
-            <div className="file-system-item__folder" onClick={() => setIsOpen((prev) => !prev)}>{isOpen ? "📂" : "📁"}{name}</div>
+            <button
+                className="file-system-item file-system-item__folder"
+                onClick={() => setIsOpen((prev) => !prev)}
+                >
+                <span>{isOpen ? "📂" : "📁"}</span>
+                <span>{name}</span>
+            </button>
             {isOpen && (
                 <div className="file-system-item__children">
                 {Object.entries(item.children).map(([childName, child]) => (

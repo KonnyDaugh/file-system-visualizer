@@ -23,21 +23,31 @@ function App() {
 
     return (
         <>
-            <input
-                type="text"
-                placeholder="Go to file..."
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-            />
-            <div>
-                {Object.entries(visibleFileSystem).map(([name, item]) => (
-                    <FileSystemItem
-                    key={name}
-                    name={name}
-                    item={item}
+            <main className="app">
+                <section className="file-explorer">
+                    <h1 className="file-explorer__title">File System</h1>
+                    <input
+                        className="file-explorer__search"
+                        type="text"
+                        placeholder="Search files..."
+                        value={searchQuery}
+                        onChange={(event) => setSearchQuery(event.target.value)}
                     />
-                ))}
-            </div>
+                    <div className="file-explorer__tree">
+                        {Object.keys(visibleFileSystem).length === 0 ? (
+                        <p className="file-explorer__empty">Nothing found</p>
+                        ) : (
+                            Object.entries(visibleFileSystem).map(([name, item]) => (
+                                <FileSystemItem
+                                key={name}
+                                name={name}
+                                item={item}
+                                />
+                            ))
+                        )}
+                    </div>
+                </section>
+            </main>
         </>
     )
 }
